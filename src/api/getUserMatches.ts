@@ -1,5 +1,5 @@
 import type { MatchInfo, MatchSortOptions, MatchType, UserIdentifier } from "../types/mscrRankedObjects";
-import { apiFetch } from "./apiFetch";
+import { mcsrRankedApiFetch } from "./apiFetch";
 
 export type GetUserMatchesParams = {
     before?: string; // gets matches before the match with this id
@@ -28,9 +28,9 @@ class GetUserMatchesSearchParams extends URLSearchParams {
 
 export type GetUserMatchesResponse = MatchInfo[];
 
-export const getUserMatches = async (identifier: UserIdentifier, searchParams: GetUserMatchesParams): Promise<GetUserMatchesResponse> => {
+export const getUserMatches = async (identifier: UserIdentifier, searchParams?: GetUserMatchesParams): Promise<GetUserMatchesResponse> => {
     let endpoint = `/users/${identifier}/matches?`;
     const urlSearchParams = new GetUserMatchesSearchParams(searchParams);
     endpoint += urlSearchParams.toString();
-    return await apiFetch(endpoint);
+    return await mcsrRankedApiFetch(endpoint);
 };
