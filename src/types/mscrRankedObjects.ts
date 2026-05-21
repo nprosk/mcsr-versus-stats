@@ -75,3 +75,5 @@ export type AdvancedMatchInfo = MatchInfo & {
     }[];
     replayExist: boolean;
 }
+
+export type MatchSortOptions = "newest" | "oldest" | "fastest" | "slowest";
