@@ -3,9 +3,16 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import { useUserMatches } from './hooks/useUserMatches'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const { data, isLoading, error } = useUserMatches('nprosk');
+
+  console.log("User matches data:", data);
+  console.log("Loading state:", isLoading);
+  console.log("Error state:", error);
 
   return (
     <>
