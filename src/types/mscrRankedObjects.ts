@@ -1,4 +1,4 @@
-export type UserIdentifier = string; //one of uuid, username, or discord.discordId
+export type UserIdentifier = string; //one of uuid, nickname, or discord.discordId
 
 export const MatchTypes = {
     "casual": 1,
@@ -15,7 +15,7 @@ export type MCSRTime = number; // Displays a specific time as an epoch time (tim
 
 export type UserProfile = {
     uuid: string;
-    username: string;
+    nickname: string;
     roleType: number;
     eloRate?: number;
     eloRank?: number;
