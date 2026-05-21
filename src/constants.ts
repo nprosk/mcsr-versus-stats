@@ -1,0 +1,1 @@
+export const rankedApiBaseUrl = "https://api.mcsrranked.com";
