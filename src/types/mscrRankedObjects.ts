@@ -27,7 +27,7 @@ export type MatchSeed = {
     overworld?: string;
     nether?: string;
     endTowers: number[]; // https://docs.mcsrranked.com/assets/img/endTowers.png 
-    variations: string[]; 
+    variations: string[];
 }
 
 export type MatchInfo = {
