@@ -3,9 +3,10 @@ import { rankedApiBaseUrl } from "../constants";
 const apiFetch = async <T>(url: string): Promise<T> => {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`API error ${res.status}: ${url}`);
-  return res.json() as Promise<T>;
+  return res.json();
 };
 
 export const mcsrRankedApiFetch = async <T>(url: string): Promise<T> => {
-  return apiFetch(rankedApiBaseUrl + url);
+  const { data } = await apiFetch<{ status: string; data: T }>(rankedApiBaseUrl + url);
+  return data;
 };

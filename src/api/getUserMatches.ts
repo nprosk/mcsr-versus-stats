@@ -32,5 +32,5 @@ export const getUserMatches = async (identifier: UserIdentifier, searchParams?: 
   let endpoint = `/users/${identifier}/matches?`;
   const urlSearchParams = new GetUserMatchesSearchParams(searchParams);
   endpoint += urlSearchParams.toString();
-  return await mcsrRankedApiFetch(endpoint);
+  return await mcsrRankedApiFetch<GetUserMatchesResponse>(endpoint);
 };
