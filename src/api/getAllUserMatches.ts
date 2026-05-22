@@ -1,30 +1,63 @@
+import { maxApiCallsByOneFunction } from "../constants";
 import type { UserIdentifier } from "../types/mscrRankedObjects";
-import { getUserMatches, type GetUserMatchesResponse } from "./getUserMatches";
+import { getUserMatches, type GetUserMatchesParams, type GetUserMatchesResponse } from "./getUserMatches";
 
-export const getAllUserMatches = async (identifier: UserIdentifier): Promise<GetUserMatchesResponse> => {
-    let allMatches: GetUserMatchesResponse = [];
-    let lastMatchId: string | undefined = undefined;
-    let hasMore = true;
+const fetchAllMatches = async (
+    identifier: UserIdentifier,
+    params?: GetUserMatchesParams,
+    apiCalls = 0
+): Promise<{ apiCalls: number; matches: GetUserMatchesResponse }> => {
+    const allMatches: GetUserMatchesResponse = [];
+    let lastMatchId: string | undefined;
     const countPerPage = 100;
-    const maxApiCalls = 20; // rate limited, so stop after max 2000 matches
-    let apiCalls = 0;
 
-    console.log(`Fetching matches for user ${identifier}...`);
+    console.log(`Fetching matches for user ${identifier} with params ${JSON.stringify(params)}...`);
 
-    while (hasMore && apiCalls < maxApiCalls) {
-        const queryParams = lastMatchId ? { count: countPerPage, before: lastMatchId } : { count: countPerPage };
-        const matches = await getUserMatches(identifier, queryParams);
+    while (apiCalls < maxApiCallsByOneFunction) {
+        const matches = await getUserMatches(identifier, { ...params, count: countPerPage, before: lastMatchId });
         allMatches.push(...matches);
-        lastMatchId = matches[matches.length - 1]?.id;
-        hasMore = matches.length === countPerPage;
-        if (!lastMatchId && hasMore) {
+        apiCalls++;
+
+        const hasMore = matches.length === countPerPage;
+        if (!hasMore) break;
+
+        lastMatchId = matches.at(-1)?.id;
+        if (!lastMatchId) {
             console.warn(`Expected more matches for user ${identifier} but no lastMatchId found. Stopping pagination.`);
             break;
         }
-        apiCalls++;
     }
 
-    console.log(`Finished fetching matches for user ${identifier}. Total matches found: ${allMatches.length}`);
+    if (apiCalls >= maxApiCallsByOneFunction) {
+        console.warn(`Reached max API calls (${maxApiCallsByOneFunction}) for user ${identifier}. Stopping.`);
+    }
+
+    return { apiCalls, matches: allMatches };
+};
+
+export const getAllUserMatches = async (identifier: UserIdentifier): Promise<GetUserMatchesResponse> => {
+    const allMatches: GetUserMatchesResponse = [];
+    let totalApiCalls = 0;
+
+    for (let season = 1; season <= 11; season++) {
+        const { apiCalls, matches } = await fetchAllMatches(identifier, { season });
+
+        totalApiCalls += apiCalls;
+
+        if (totalApiCalls >= maxApiCallsByOneFunction) {
+            console.warn(`Reached max API calls for user ${identifier}. Returning matches fetched so far.`);
+            return [...allMatches, ...matches];
+        }
+
+        if (matches.length === 0) {
+            console.log(`No matches found for user ${identifier} in season ${season}. Stopping fetch.`);
+            continue;
+        }
+
+        allMatches.push(...matches);
+    }
+
+    console.log("Total api calls made:", totalApiCalls);
 
     return allMatches;
 };
