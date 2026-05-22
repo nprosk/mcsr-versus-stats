@@ -26,11 +26,9 @@ class GetUserMatchesSearchParams extends URLSearchParams {
   }
 }
 
-export type GetUserMatchesResponse = MatchInfo[];
-
-export const getUserMatches = async (identifier: UserIdentifier, searchParams?: GetUserMatchesParams): Promise<GetUserMatchesResponse> => {
+export const getUserMatches = async (identifier: UserIdentifier, searchParams?: GetUserMatchesParams): Promise<MatchInfo[]> => {
   let endpoint = `/users/${identifier}/matches?`;
   const urlSearchParams = new GetUserMatchesSearchParams(searchParams);
   endpoint += urlSearchParams.toString();
-  return await mcsrRankedApiFetch<GetUserMatchesResponse>(endpoint);
+  return await mcsrRankedApiFetch<MatchInfo[]>(endpoint);
 };

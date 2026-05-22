@@ -1,13 +1,13 @@
 import { maxApiCallsByOneFunction } from "../constants";
-import type { UserIdentifier } from "../types/mscrRankedObjects";
-import { getUserMatches, type GetUserMatchesParams, type GetUserMatchesResponse } from "./getUserMatches";
+import type { MatchInfo, UserIdentifier } from "../types/mscrRankedObjects";
+import { getUserMatches, type GetUserMatchesParams } from "./getUserMatches";
 
 const fetchAllMatches = async (
     identifier: UserIdentifier,
     params?: GetUserMatchesParams,
     apiCalls = 0
-): Promise<{ apiCalls: number; matches: GetUserMatchesResponse }> => {
-    const allMatches: GetUserMatchesResponse = [];
+): Promise<{ apiCalls: number; matches: MatchInfo[] }> => {
+    const allMatches: MatchInfo[] = [];
     let lastMatchId: string | undefined;
     const countPerPage = 100;
 
@@ -35,8 +35,8 @@ const fetchAllMatches = async (
     return { apiCalls, matches: allMatches };
 };
 
-export const getAllUserMatches = async (identifier: UserIdentifier): Promise<GetUserMatchesResponse> => {
-    const allMatches: GetUserMatchesResponse = [];
+export const getAllUserMatches = async (identifier: UserIdentifier): Promise<MatchInfo[]> => {
+    const allMatches: MatchInfo[] = [];
     let totalApiCalls = 0;
 
     for (let season = 1; season <= 11; season++) {
