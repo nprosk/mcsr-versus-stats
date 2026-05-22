@@ -31,7 +31,7 @@ export type MatchSeed = {
 }
 
 export type MatchInfo = {
-    matchId: string;
+    id: string;
     matchType: MatchType;
     season: number;
     category: string;
