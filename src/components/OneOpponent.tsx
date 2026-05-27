@@ -9,7 +9,7 @@ export const OneOpponent = ({ player, opponent, matches }: { player: UserIdentif
     return (
         <Grid columns={12}>
             <Grid.Col span={2}><Center><PlayerHead identifier={opponent} /></Center></Grid.Col>
-            <Grid.Col span={2}><Text>{opponentNickname}</Text></Grid.Col>
+            <Grid.Col span={2}><Center><Text>{opponentNickname}</Text></Center></Grid.Col>
             <Grid.Col span={8}><MatchTimes player={player} matches={matches} /></Grid.Col>
         </Grid>
     );
