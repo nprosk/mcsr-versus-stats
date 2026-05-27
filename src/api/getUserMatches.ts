@@ -2,8 +2,8 @@ import type { MatchInfo, MatchSortOptions, MatchType, UserIdentifier } from "../
 import { mcsrRankedApiFetch } from "./apiFetch";
 
 export type GetUserMatchesParams = {
-  before?: string; // gets matches before the match with this id
-  after?: string; // gets matches after the match with this id
+  before?: number; // gets matches before the match with this id
+  after?: number; // gets matches after the match with this id
   sort?: MatchSortOptions;
   count?: number; //number of matches to return, default 20, max 100
   type?: MatchType; //filter by match type
@@ -16,8 +16,8 @@ class GetUserMatchesSearchParams extends URLSearchParams {
     super();
     if (!params) return;
 
-    if (params.before !== undefined) this.set('before', params.before);
-    if (params.after !== undefined) this.set('after', params.after);
+    if (params.before !== undefined) this.set('before', String(params.before));
+    if (params.after !== undefined) this.set('after', String(params.after));
     if (params.sort !== undefined) this.set('sort', String(params.sort));
     if (params.count !== undefined) this.set('count', String(params.count));
     if (params.type !== undefined) this.set('type', String(params.type));

@@ -8,7 +8,7 @@ const fetchAllMatches = async (
     apiCalls = 0
 ): Promise<{ apiCalls: number; matches: MatchInfo[] }> => {
     const allMatches: MatchInfo[] = [];
-    let lastMatchId: string | undefined;
+    let lastMatchId: number | undefined;
     const countPerPage = 100;
 
     console.log(`Fetching matches for user ${identifier} with params ${JSON.stringify(params)}...`);
