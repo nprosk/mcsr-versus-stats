@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import { getProfileFromNickname } from "../api/getProfileFromNickname";
 
-export const useProfileFromNickname = (identifier: string) => {
+export const useProfileFromNickname = (nickname: string) => {
     return useQuery({
-        queryKey: ['profileFromNickname', identifier],
-        queryFn: () => getProfileFromNickname(identifier),
-        enabled: !!identifier
+        queryKey: ['profileFromNickname', nickname],
+        queryFn: () => getProfileFromNickname(nickname),
+        enabled: !!nickname
     });
 }
