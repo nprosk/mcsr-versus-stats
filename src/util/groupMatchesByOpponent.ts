@@ -11,7 +11,7 @@ export const groupMatchesByOpponent = (thisPlayer: UserIdentifier, matches: Matc
             grouped["NO_OPPONENT"].push(match);
         }
         else if (match.players.length === 2) {
-            const opponent = match.players.find(player => player.nickname !== thisPlayer || player.uuid !== thisPlayer);
+            const opponent = match.players.find(player => player.nickname !== thisPlayer && player.uuid !== thisPlayer);
             if (opponent) {
                 if (!grouped[opponent.nickname]) {
                     grouped[opponent.nickname] = [];
