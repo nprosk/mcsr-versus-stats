@@ -31,8 +31,8 @@ export type MatchSeed = {
 }
 
 export type MatchInfo = {
-    id: string;
-    matchType: MatchType;
+    id: number;
+    type: MatchType;
     season: number;
     category: string;
     date: MCSRDate;
