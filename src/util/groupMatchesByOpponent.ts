@@ -13,10 +13,10 @@ export const groupMatchesByOpponent = (thisPlayer: UserIdentifier, matches: Matc
         else if (match.players.length === 2) {
             const opponent = match.players.find(player => player.nickname !== thisPlayer && player.uuid !== thisPlayer);
             if (opponent) {
-                if (!grouped[opponent.nickname]) {
-                    grouped[opponent.nickname] = [];
+                if (!grouped[opponent.uuid]) {
+                    grouped[opponent.uuid] = [];
                 }
-                grouped[opponent.nickname].push(match);
+                grouped[opponent.uuid].push(match);
             }
         }
     });
