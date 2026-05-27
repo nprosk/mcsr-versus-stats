@@ -17,6 +17,5 @@ export const minotarFetch = async <T>(url: string): Promise<T> => {
 };
 
 export const mojangApiFetch = async <T>(url: string): Promise<T> => {
-  const { data } = await apiFetch<{ status: string; data: T }>(mojangApiBaseUrl + url);
-  return data;
+  return apiFetch<T>("https://corsproxy.io/?url=" + encodeURIComponent(mojangApiBaseUrl + url));
 };
