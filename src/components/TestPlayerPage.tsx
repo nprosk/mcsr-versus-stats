@@ -7,10 +7,12 @@ export const TestPlayerPage = () => {
 
     const slickUuidQuery = useProfileFromNickname("Slickburrito735");
     const slickUuid = slickUuidQuery.data?.id;
+    const nproskUuidQuery = useProfileFromNickname("Nprosk");
+    const nproskUuid = nproskUuidQuery.data?.id;
     const twoOpps = { [slickUuid]: groupedMatches[slickUuid], "Qwertycube10": groupedMatches["Qwertycube10"] };
     console.log("twoOpps", twoOpps);
 
     return (
-        !slickUuidQuery.isLoading && <OneOpponent identifier={slickUuid} matches={twoOpps[slickUuid]}></OneOpponent>
+        !slickUuidQuery.isLoading && !nproskUuidQuery.isLoading && <OneOpponent player={nproskUuid} opponent={slickUuid} matches={twoOpps[slickUuid]}></OneOpponent>
     )
 }
