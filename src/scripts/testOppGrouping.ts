@@ -1,8 +1,20 @@
-import { getAllUserMatches } from "../api/getAllUserMatches"
-import { groupMatchesByOpponent } from "../util/groupMatchesByOpponent"
-import * as fs from "fs";
+import { join, dirname } from "path";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { getAllUserMatches } from "../api/getAllUserMatches";
+import { groupMatchesByOpponent } from "../util/groupMatchesByOpponent";
+import { fileURLToPath } from "url";
 
-const allMatches = await getAllUserMatches("nprosk");
-const grouped = groupMatchesByOpponent("nprosk", allMatches);
+(async () => {
+    const allMatches = await getAllUserMatches("nprosk");
+    const grouped = groupMatchesByOpponent("nprosk", allMatches);
 
-fs.writeFileSync("groupedMatches.json", JSON.stringify(grouped, null, 2));
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const filePath = join(__dirname, "testData/nproskGroupedMatches.json");
+    if (!existsSync(dirname(filePath))) {
+        mkdirSync(dirname(filePath), { recursive: true });
+    }
+
+    writeFileSync(filePath, JSON.stringify(grouped, null, 2));
+})();
