@@ -28,7 +28,7 @@ export const MatchTime = ({ player, match }: { player: UserIdentifier; match: Ma
     const color = badgeColor(player, match);
 
     return (
-        <Badge color={color} variant="light" rightSection={icon}>
+        <Badge color={color} variant="light" rightSection={icon} w={80}>
             <Text size="sm">
                 {prettyMilliseconds(match.result.time, {
                     colonNotation: true,
