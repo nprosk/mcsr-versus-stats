@@ -1,34 +1,41 @@
-import { Button } from "@mantine/core";
+import { Badge, Text } from "@mantine/core";
 import type { MatchInfo, UserIdentifier } from "../types/mscrRankedObjects";
 import prettyMilliseconds from "pretty-ms";
-import { FlagBannerFoldIcon, FlagIcon, HandshakeIcon } from "@phosphor-icons/react";
+import { FlagBannerFoldIcon } from "@phosphor-icons/react";
 
-const matchResultIcon = (player: UserIdentifier, match: MatchInfo) => {
+const badgeColor = (player: UserIdentifier, match: MatchInfo) => {
     if (match.result.uuid) {
-        if (match.forfeited) {
-            if (match.result.uuid === player) {
-                return <FlagBannerFoldIcon color="green" />;
-            }
-            return <FlagBannerFoldIcon color="red" />;
+        if (match.result.uuid === player) {
+            return "green";
         } else {
-            if (match.result.uuid === player) {
-                return <FlagIcon color="green" />;
-            }
-            return <FlagIcon color="red" />;
+            return "red";
         }
     }
-    return <HandshakeIcon />;
+    return "gray";
+};
+
+const matchResultIcon = (player: UserIdentifier, match: MatchInfo) => {
+    if (match.result.uuid && match.forfeited) {
+        if (match.result.uuid === player) {
+            return <FlagBannerFoldIcon color="green" />;
+        }
+        return <FlagBannerFoldIcon color="red" />;
+    }
 };
 
 export const MatchTime = ({ player, match }: { player: UserIdentifier; match: MatchInfo }) => {
     const icon = matchResultIcon(player, match);
+    const color = badgeColor(player, match);
 
-    return (<Button variant="light" size="xs">
-        {prettyMilliseconds(match.result.time, {
-            colonNotation: true,
-            secondsDecimalDigits: 1,
-            keepDecimalsOnWholeSeconds: true
-        })}
-        {icon}
-    </Button>);
+    return (
+        <Badge color={color} variant="light" rightSection={icon}>
+            <Text size="sm">
+                {prettyMilliseconds(match.result.time, {
+                    colonNotation: true,
+                    secondsDecimalDigits: 1,
+                    keepDecimalsOnWholeSeconds: true
+                })}
+            </Text>
+        </Badge >
+    );
 }
