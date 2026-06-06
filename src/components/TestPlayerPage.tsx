@@ -1,6 +1,6 @@
 import { useProfileFromNickname } from "../hooks/useProfileFromNickname";
 import { getTestGroupedMatches } from "../util/getTestGroupedMatches";
-import { OneOpponent } from "./OneOpponent";
+import { ManyOpponents } from "./ManyOpponents";
 
 export const TestPlayerPage = () => {
     const groupedMatches = getTestGroupedMatches();
@@ -9,10 +9,12 @@ export const TestPlayerPage = () => {
     const slickUuid = slickUuidQuery.data?.id;
     const nproskUuidQuery = useProfileFromNickname("Nprosk");
     const nproskUuid = nproskUuidQuery.data?.id;
-    const twoOpps = { [slickUuid]: groupedMatches[slickUuid], "Qwertycube10": groupedMatches["Qwertycube10"] };
+    const qwertyUuidQuery = useProfileFromNickname("Qwertycube10");
+    const qwertyUuid = qwertyUuidQuery.data?.id;
+    const twoOpps = { [slickUuid]: groupedMatches[slickUuid], [qwertyUuid]: groupedMatches[qwertyUuid] };
     console.log("twoOpps", twoOpps);
 
     return (
-        !slickUuidQuery.isLoading && !nproskUuidQuery.isLoading && <OneOpponent player={nproskUuid} opponent={slickUuid} matches={twoOpps[slickUuid]}></OneOpponent>
+        !slickUuidQuery.isLoading && !nproskUuidQuery.isLoading && !qwertyUuidQuery.isLoading && <ManyOpponents player={nproskUuid} oppMatches={twoOpps} />
     )
 }
