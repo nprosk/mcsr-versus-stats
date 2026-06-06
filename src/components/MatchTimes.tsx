@@ -5,7 +5,7 @@ import { MatchTime } from "./MatchTime";
 export const MatchTimes = ({ player, matches }: { player: UserIdentifier; matches: MatchInfo[] }) => {
     return (
         <Group>
-            {matches.map(match => <MatchTime player={player} match={match} />)}
+            {matches.map(match => <MatchTime player={player} match={match} key={match.id} />)}
         </Group>
     )
 }
