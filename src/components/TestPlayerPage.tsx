@@ -1,6 +1,7 @@
 import { useProfileFromNickname } from "../hooks/useProfileFromNickname";
 import { getTestGroupedMatches } from "../util/getTestGroupedMatches";
 import { ManyOpponents } from "./ManyOpponents";
+import { Container } from "@mantine/core";
 
 export const TestPlayerPage = () => {
     const groupedMatches = getTestGroupedMatches();
@@ -15,6 +16,8 @@ export const TestPlayerPage = () => {
     console.log("twoOpps", twoOpps);
 
     return (
-        !slickUuidQuery.isLoading && !nproskUuidQuery.isLoading && !qwertyUuidQuery.isLoading && <ManyOpponents player={nproskUuid} oppMatches={twoOpps} />
+        <Container fluid p="md">
+            <ManyOpponents player={nproskUuid} oppMatches={groupedMatches} />
+        </Container>
     )
 }
