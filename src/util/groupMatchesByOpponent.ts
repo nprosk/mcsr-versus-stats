@@ -1,6 +1,9 @@
 import type { UserIdentifier, MatchInfo } from "../types/mscrRankedObjects"
 
-export const groupMatchesByOpponent = (thisPlayer: UserIdentifier, matches: MatchInfo[]): Record<UserIdentifier | "NO_OPPONENT", MatchInfo[]> => {
+export type OpponentGroup = {opponent: UserIdentifier | "NO_OPPONENT", matches:MatchInfo[]};
+export type GroupedMatches = OpponentGroup[];
+
+export const groupMatchesByOpponent = (thisPlayer: UserIdentifier, matches: MatchInfo[]): GroupedMatches => {
     const grouped: Record<UserIdentifier | "NO_OPPONENT", MatchInfo[]> = {} as Record<UserIdentifier | "NO_OPPONENT", MatchInfo[]>;
 
     matches.forEach(match => {
@@ -21,5 +24,7 @@ export const groupMatchesByOpponent = (thisPlayer: UserIdentifier, matches: Matc
         }
     });
 
-    return grouped;
+    const groupedArray = Object.entries(grouped).map(([opponent, matches]) => ({ opponent, matches }));
+
+    return groupedArray;
 }

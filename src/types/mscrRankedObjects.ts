@@ -17,9 +17,9 @@ export type UserProfile = {
     uuid: string;
     nickname: string;
     roleType: number;
-    eloRate?: number;
-    eloRank?: number;
-    country?: string; //country code
+    eloRate?: number | null;
+    eloRank?: number | null;
+    country?: string | null; //country code
 }
 
 export type MatchSeed = {
@@ -40,21 +40,21 @@ export type MatchInfo = {
     spectators: UserProfile[];
     seed?: MatchSeed;
     result: {
-        uuid: string; //uuid of the winner
+        uuid: string | null; //uuid of the winner
         time: MCSRTime;
     }
     forfeited: boolean;
     decayed: boolean;
     rank: {
-        season: number;
-        allTime: number;
+        season: number | null;
+        allTime: number | null;
     },
     changes: {
         uuid: string;
-        change: number;
-        eloRate: number;
+        change: number | null; //null if no change, otherwise the amount of elo change
+        eloRate: number | null; //null if no change, otherwise the new elo rate after the match
     }[];
-    tag: string;
+    tag: string | null;
     beginner: boolean;
     vod: {
         uuid: string; //uuid of the player who uploaded the vod
