@@ -1,4 +1,4 @@
-import { maxApiCallsByOneFunction } from "../constants";
+import { currentSeason, maxApiCallsByOneFunction } from "../constants";
 import type { MatchInfo, UserIdentifier } from "../types/mscrRankedObjects";
 import { getUserMatches, type GetUserMatchesParams } from "./getUserMatches";
 
@@ -39,7 +39,7 @@ export const getAllUserMatches = async (identifier: UserIdentifier): Promise<Mat
     const allMatches: MatchInfo[] = [];
     let totalApiCalls = 0;
 
-    for (let season = 1; season <= 11; season++) {
+    for (let season = currentSeason; season > 0; season--) {
         const { apiCalls, matches } = await fetchAllMatches(identifier, { season });
 
         totalApiCalls += apiCalls;

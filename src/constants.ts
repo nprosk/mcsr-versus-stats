@@ -3,3 +3,4 @@ export const minotarBaseUrl = "https://minotar.net/avatar";
 export const mojangApiBaseUrl = "https://api.mojang.com";
 
 export const maxApiCallsByOneFunction = 20;
+export const currentSeason = 11;
