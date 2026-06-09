@@ -6,7 +6,6 @@ import { calculateStats } from "../util/statsUtil";
 import { prettyMatchTime } from "../util/generalUtil";
 
 export const OneOpponent = ({ player, opponent, matches }: { player: UserIdentifier; opponent: UserIdentifier; matches: MatchInfo[] }) => {
-    console.log("Rendering OneOpponent", player, opponent, matches);
     const opponentNickname = matches[0]?.players.find(p => p.uuid === opponent)?.nickname || opponent;
     const playerNickname = matches[0]?.players.find(p => p.uuid === player)?.nickname || player;
 
