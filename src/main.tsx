@@ -9,12 +9,22 @@ import '@mantine/core/styles.css';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 5, // data stays fresh for 5 minutes
       gcTime: 1000 * 60 * 10,   // cache kept in memory for 10 minutes
     },
   },
 });
+
+// Expose the query client to the window for debugging purposes
+declare global {
+  interface Window {
+    __TANSTACK_QUERY_CLIENT__:
+    import('@tanstack/query-core')
+    .QueryClient
+  }
+}
+
+window.__TANSTACK_QUERY_CLIENT__ = queryClient
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
