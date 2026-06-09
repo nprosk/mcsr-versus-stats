@@ -1,7 +1,7 @@
 import { Badge, Text } from "@mantine/core";
 import type { MatchInfo, UserIdentifier } from "../types/mscrRankedObjects";
-import prettyMilliseconds from "pretty-ms";
 import { FlagBannerFoldIcon } from "@phosphor-icons/react";
+import { prettyMatchTime } from "../util/generalUtil";
 
 const badgeColor = (player: UserIdentifier, match: MatchInfo) => {
     if (match.result.uuid) {
@@ -30,11 +30,7 @@ export const MatchTime = ({ player, match }: { player: UserIdentifier; match: Ma
     return (
         <Badge color={color} variant="light" rightSection={icon} w={90}>
             <Text size="sm">
-                {prettyMilliseconds(match.result.time, {
-                    colonNotation: true,
-                    secondsDecimalDigits: 1,
-                    keepDecimalsOnWholeSeconds: true
-                })}
+                {prettyMatchTime(match.result.time, 1)}
             </Text>
         </Badge >
     );
