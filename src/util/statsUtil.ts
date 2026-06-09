@@ -24,7 +24,7 @@ export const calculateStats = (player: UserIdentifier, opponent: UserIdentifier,
         const playerInfo = match.players.find(p => p.uuid === player);
         const opponentInfo = match.players.find(p => p.uuid === opponent);
 
-        if (!playerInfo || !opponentInfo) {
+        if (!playerInfo || (!opponentInfo && opponent !== "NO_OPPONENT")) {
             console.warn(`Player or opponent not found in match ${match.id}`);
             return;
         }
