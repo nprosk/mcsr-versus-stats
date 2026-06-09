@@ -4,8 +4,9 @@ import type { MatchInfo, UserIdentifier } from "../types/mscrRankedObjects";
 import { MatchTimes } from "./MatchTimes";
 import { calculateStats } from "../util/statsUtil";
 import { prettyMatchTime } from "../util/generalUtil";
+import { memo } from "react";
 
-export const OneOpponent = ({ player, opponent, matches }: { player: UserIdentifier; opponent: UserIdentifier; matches: MatchInfo[] }) => {
+export const OneOpponent = memo(({ player, opponent, matches }: { player: UserIdentifier; opponent: UserIdentifier; matches: MatchInfo[] }) => {
     const opponentNickname = matches[0]?.players.find(p => p.uuid === opponent)?.nickname || opponent;
     const playerNickname = matches[0]?.players.find(p => p.uuid === player)?.nickname || player;
 
@@ -19,4 +20,4 @@ export const OneOpponent = ({ player, opponent, matches }: { player: UserIdentif
             <Grid.Col span={8}><MatchTimes player={player} matches={matches} /></Grid.Col>
         </Grid>
     );
-}
+});
