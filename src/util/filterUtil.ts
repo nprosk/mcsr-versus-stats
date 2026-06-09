@@ -18,3 +18,5 @@ export const applyFilter = (matches: GroupedMatches, filterFn: MatchFilterFn): G
 export const privateMatchFilterFn = (match: MatchInfo) => match.type !== MatchTypes.private;
 
 export const seasonFilterFn = (seasons: number[]): MatchFilterFn => (match: MatchInfo) => seasons.includes(match.season);
+
+export const decayedMatchFilterFn = (match: MatchInfo) => !match.decayed;
