@@ -25,10 +25,11 @@ export const ManyOpponents = ({ player, oppMatches }: { player: UserIdentifier, 
             <Divider mb="md" />
             <Stack gap="md">
                 {displayedMatches.map(({ opponent, matches }, i) => {
+                    const matchesNoDecay = matches.filter(match => !match.decayed);
                     return (
                         <Fragment key={opponent}>
-                            {matches.length > 0 && i > 0 && <Divider />}
-                            {matches.length > 0 && <OneOpponent player={player} opponent={opponent} matches={matches} />}
+                            {matchesNoDecay.length > 0 && i > 0 && <Divider />}
+                            {matchesNoDecay.length > 0 && <OneOpponent player={player} opponent={opponent} matches={matchesNoDecay} />}
                         </Fragment>
                     )
                 })}
