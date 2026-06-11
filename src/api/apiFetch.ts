@@ -1,4 +1,4 @@
-import { minotarBaseUrl, mojangApiBaseUrl, rankedApiBaseUrl } from "../constants";
+import { minotarProxyBaseUrl, playerdbApiProxyBaseUrl, rankedProxyBaseUrl } from "../constants";
 
 const apiFetch = async <T>(url: string): Promise<T> => {
   const res = await fetch(url);
@@ -7,15 +7,16 @@ const apiFetch = async <T>(url: string): Promise<T> => {
 };
 
 export const mcsrRankedApiFetch = async <T>(url: string): Promise<T> => {
-  const { data } = await apiFetch<{ status: string; data: T }>(rankedApiBaseUrl + url);
+  const { data } = await apiFetch<{ status: string; data: T }>(rankedProxyBaseUrl + url);
   return data;
 };
 
 export const minotarFetch = async <T>(url: string): Promise<T> => {
-  const { data } = await apiFetch<{ status: string; data: T }>(minotarBaseUrl + url);
+  const { data } = await apiFetch<{ status: string; data: T }>(minotarProxyBaseUrl + url);
   return data;
 };
 
-export const mojangApiFetch = async <T>(url: string): Promise<T> => {
-  return apiFetch<T>("https://corsproxy.io/?url=" + encodeURIComponent(mojangApiBaseUrl + url));
+export const playerdbApiFetch = async <T>(url: string): Promise<T> => {
+  const { data } = await apiFetch<{ status: string; data: T }>(playerdbApiProxyBaseUrl + url);
+  return data;
 };
