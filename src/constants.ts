@@ -9,4 +9,4 @@ export const minotarProxyBaseUrl = proxyBaseUrl + "/minotar";
 export const playerdbApiProxyBaseUrl = proxyBaseUrl + "/playerdb";
 
 export const maxApiCallsByOneFunction = 20;
-export const currentSeason = 11;
+export const currentSeason = 12;
